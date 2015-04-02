@@ -1,0 +1,385 @@
+// shows calendar at present month
+cal
+
+// shows calendar at selected month (jul 2014)
+cal 7 2014
+
+// shows date
+date
+
+// shows date custom format (month-year-day-\newline\ hours:minutes:seconds)
+date '+DATE:%m-%y-%d--%nTIME:%H:%M:%S'
+
+// creates text file with text inside (ctrl-d to end)
+cat > test
+this is a test file.
+
+// shows text file
+cat < test
+
+// puts text in two text files into new file
+cat random test > sample
+
+// move or rename file names
+mv forrest_gump the_green_mile
+
+// remove files
+rm the_green_mile
+
+// remove folders
+rmdir new
+-or-
+rm -r new
+
+// copy files
+cp old ~/Music
+
+// creates a hard link to old file (when saved, changes appear in new, stays when old is gone)
+ln old new
+
+// creates a soft link to old file (doesn't work when old is gone)
+ln -s old new
+
+// see file permissions (022 = subtracted from 666 = default)
+umask
+
+// see all files in current directory
+ls
+
+// see all files in documents directory
+ls Documents
+
+// see all files long listing
+ls -l
+
+// see all files including hidden files (.file files are hidden, ctrl h in finder)
+ls -a
+
+// change file/folder permissions (777 read write execute permission for all users)
+chmod 777 test
+
+// change permissions to only read (444)
+chmod 444 test
+
+// tells name , version , owner of kernel / processir / operating system
+uname -a
+
+// shows all files in directory with description of contents
+file *  
+
+// counts number of lines, words, characters in file
+wc jazzy
+wc jazzy -l (only # of lines)
+wc jazzy -w (only # of words)
+wc jazzy -c (only # of characters)
+
+// sorts text file
+sort animals (temp sortiing)
+sort (sorts next inputs, ctrl d to exit)
+
+// extract data from files (columns separated by -)
+cut -d"-" -f 1,3 sports (shows columns 1 and 3 in sports file)
+
+// convert and copy files to uppercase (test2 file to test3 file)
+dd if=test2 of=test3 conv=ucase
+
+// convert and copy fies to european format
+dd if=test2 of=test4 conv=ebcdic
+
+// get help on command
+man cat
+
+// makes a large banner
+banner "hihi"
+
+// reduce file size
+compress -v test
+
+// reading compressed file
+zcat test
+
+// uncompress file
+uncompress test
+
+// 1st script file (ss1.sh)
+```
+# this is my first shell script.
+echo "hello world"
+```
+run shell script by:
+sh ss1.sh
+
+// shell script variables
+```
+echo "whats your name?"
+read my_name
+echo "hello $my_name, have a great day!"
+```
+
+// shell script to rename a file
+```
+echo "provide a file name"
+read name
+mv $1 $name
+cat $name
+```
+
+// set commands (echo $1 returns Shell, echo $* lists all)
+set Shell scripting is cool!
+
+// set command to run a file test
+set `cat test`
+echo $*
+
+// set command to rename file from test to test.my_name
+```
+name=$1
+set `who am i`
+mv $name $name.1
+```
+sh ss6.sh test
+
+// shows number of items in set
+echo $#
+
+// using arithmetic operations in shell scripts.  expr only works with integer values
+```
+a=30 b=15
+echo `expr $a + $b`
+echo `expr $b - $a`
+echo `expr $a \* $b`
+echo `expr $a / $b`
+echo `expr $a % $b`
+```
+
+// using multiple arithmetic operations in aline
+```
+a=30 b=15 c=2 d=5
+echo `expr $a \* \( $b + $c \) / $d`
+```
+
+// using arithmetic operations with real numbers
+```
+a=10.5
+b=3.5
+```
+echo $a + $b | bc
+
+// escape sequences
+``` ss11.js
+echo "Hey world, \nwhat's up"  (\n new line)
+echo "Hey world, \rwhat's up"  (\r starts here overwrites beginning lines up to \r)
+echo "Hey world, \twhat's up"  (\t 5 times space bar)
+echo "Hey world, \bwhat's up"  (\b backspace)
+echo "\033[1mHey world, \what's up\033[0m"  (\033 starts always, (1m = bold text, 0m= default text, 7m= inverse colors))
+```
+
+// tput
+```
+tput clear (clears screen)
+tput lines (counts # of lines on terminal)
+tput cols (counts # of columns on terminal)
+tput cup 15 20 (moves type cursor 15 rows across and 20 cols down)
+tput bold (bolds text)
+```
+
+// if then else statement in action
+```
+echo "enter source and target file names"
+read source target
+if mv $source $target
+then
+echo "your file has been successfully renamed"
+else
+echo "the file could not be renamed"
+fi
+```
+
+// check on numbers
+```
+echo "enter a number between 10 and 20:\c"
+read num
+if [ $num -lt 10 ]
+then echo "value is lower than 10"
+elif [ $num -gt 20 ]
+then echo "value is over 20"
+else echo "$num is a good number"
+fi
+```
+
+// check filenames
+```
+echo "enter a name:\c"
+read fname
+if [ -f $fname ]
+the echo "you indeed entered a file name"
+else echo "don't provide me crazy inputs"
+fi
+
+# -d = folders
+# -c = character specila files
+# -b = log special files
+# -r = read permission
+# -w = write permission
+# -x = execute permission
+# -s = file size greater than 0
+```
+
+// check on strings
+```
+str1="Hey You!"
+str2="What's up"
+str3=""
+
+[ "$str1" = "$str2" ]
+echo $?
+
+[ "$str1" != "$str2" ]
+echo $?
+
+[ -n "$str1" ]  // length is greater than 0 or not
+echo $?
+
+[ -z "$str3" ]  // if this is a null string or not
+echo $?
+```
+
+// and statement in shell scripts (-a)
+```
+echo "enter a number between 50 and 100:\c"
+read num
+if [ $num -le 100 -a $num -ge 50 ]
+then echo "you are within limits"
+else echo "you are out of bounds"
+fi
+```
+
+// or statement in shell scripts
+```
+echo "enter a character:\c"
+read var 
+if [ `echo $var | wc -c` -eq 2 ]
+ then 
+ if [ $var = a -o $var = e -o $var = i -o $var = o -o $var = u ]
+   then echo "you entered a vowel"
+ else echo "you didn't enter a vowel"
+ fi
+else
+ echo "invalid input"
+fi
+```
+
+// counts number of characters (wc = wordcount, )
+```
+echo "enter a character:\c"
+read var 
+if [ `echo $var | wc -c` -eq 2 ]
+ then echo "you entered a character."
+else
+ echo "invalid input"
+fi
+```
+
+// case statements in shell scripts
+```
+echo "enter a character:\c"
+read var
+case $var in 
+ [a-z]) echo "you entered a lower case alphabet";;
+ [A-Z]) echo "you entered an upper case alphabet";;
+ [0-9]) echo "you entered a digit";;
+ ?) echo "You entered a special symbol";;
+ *) echo "you entered more than one character";;
+esac
+```
+
+// while loops
+```
+count=1
+while [ $count -le 15 ]
+do 
+	echo $count
+	count=`expr $count + 1`
+done
+```
+
+// until loops
+```
+# until loop
+count=1
+until [ $count -ge 10 ]
+do
+ echo $count
+ count=`expr $count + 1`
+done
+```
+
+// for loop
+```
+for item in *
+do 
+	if [ -d $item ]
+	then 
+		echo $item
+	fi
+done
+```
+
+// comparing two floats (-eq only works for integers)
+```
+a=4.5
+b=4.5
+
+[ "$a" = "$b" ]
+echo $?
+```
+
+// grep to search text
+grep money test (highlights text)
+grep -i money test (highlights, whole line)
+grep -i -n money test (highlights, whole line, # of line)
+grep -i -n -c money test (total number of appearances)
+grep -i -n -c -v money test (total number of lines without word)
+
+// accessing passwd file
+cat /etc/passwd
+
+// the internal field separator
+```
+line="shell scripting is fun"
+# IFS=:
+set $line
+echo $1
+echo $2
+echo $3
+echo $4
+```
+
+// password file search
+```
+echo  "enter username:\c"
+read logname
+line=`grep $logname /etc/passwd`
+IFS=:
+set $line
+echo "Username:$1"
+echo "User ID:$3"
+echo "Group ID:$4"
+echo "Comment Field:$5"
+echo "Home Folder:$6"
+echo "Default Shell:$7"
+```
+
+// adding a delay 
+```
+echo "enter a sentence:\c"
+read str
+for word in $str
+do
+  echo $word
+  sleep 2
+done
+```
+
+//
+
